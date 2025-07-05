@@ -5,7 +5,7 @@ dotenv.config();
 const requiredEnvVars = ["PORT", "MONGO_URI", "JWT_SECRET", "SESSION_SECRET", "BREVO_API_KEY","SENDER_EMAIL"]
 
 requiredEnvVars.forEach( (key) => {
-    if(!ProcessingInstruction.env[key]){
+    if(!process.env[key]){
         throw new Error(`❌ Missing required environment variable: ${key}`);
     }
 } )
