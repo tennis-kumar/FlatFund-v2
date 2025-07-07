@@ -3,7 +3,7 @@ import Flat from '../models/flat.model.js';
 export const addFlat = async (req,res) => {
     try {
         const { flatNumber, floorNumber, apartmentId } = req.body;
-        if(!flatNumber || !floorNumber || !apartmentId){
+        if(!flatNumber || floorNumber === undefined || floorNumber === null || !apartmentId){
             return res.status(400).json({
                 success: false,
                 message: `flatNumber, floorNumber and apartmentId are required`
@@ -28,12 +28,12 @@ export const addFlat = async (req,res) => {
 
 export const getFlats =  async (req,res) => {
     try {
-        const Flats = await Flat.find();
+        const allFlats = await Flat.find();
 
         res.status(200).json({
             success: true,
             message: `Flats fetched successfully`,
-            data: Flats
+            data: allFlats
         })
     } catch (error) {
         console.error('Error fetching Flats:', error);
@@ -90,19 +90,19 @@ export const updateFlat = async (req,res) => {
             });
         }
         const { flatNumber, floorNumber, apartmentId } = req.body;
-        if(!flatNumber || !floorNumber || !apartmentId){
+        if(!flatNumber || floorNumber === undefined || floorNumber === null || !apartmentId){
             return res.status(400).json({
                 success: false,
                 message: `flatNumber, floorNumber and apartmentId are required`
             });
         }
         
-        const Flat = await Flat.findByIdAndUpdate(
+        const updatedFlat  = await Flat.findByIdAndUpdate(
             id,
             { flatNumber, floorNumber, apartmentId },
             { new: true, runValidators: true }
         )
-        if(!Flat){
+        if(!updatedFlat ){
             return res.status(404).json({
                 success: false,
                 message: `Flat not found`
@@ -112,7 +112,7 @@ export const updateFlat = async (req,res) => {
         res.status(200).json({
             success: true,
             message: 'Flat updated successfully',
-            data: Flat
+            data: updatedFlat
         });
         
     } catch (error) {
@@ -133,9 +133,9 @@ export const deleteFlat = async (req,res) => {
                 message: 'Flat ID is required',
             });
         }
-        const Flat = await Flat.findByIdAndDelete(id);
+        const deletedFlat = await Flat.findByIdAndDelete(id);
 
-        if(!Flat){
+        if(!deletedFlat){
             return res.status(404).json({
                 success: false,
                 message: `Flat not found`
@@ -145,7 +145,7 @@ export const deleteFlat = async (req,res) => {
         res.status(200).json({
             success: true,
             message: 'Flat deleted successfully',
-            data: Flat
+            data: deletedFlat
         });
     } catch (error) {
         console.error('Error deleting Flat:', error);

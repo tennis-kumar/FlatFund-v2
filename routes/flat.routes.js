@@ -3,15 +3,15 @@ import { addFlat, deleteFlat, getFlats, getFlatWithId, updateFlat } from "../con
 
 const router = express.Router();
 
-//add apartment
+//add Flat
 router.post('/',addFlat)
-// get all apartment names
+// get all Flats
 router.get('/', getFlats)
-// get apartment by id
+// get Flat by id
 router.get('/:id', getFlatWithId)
-// update apartment details
+// update Flat details
 router.put('/:id', updateFlat)
-//delete apartment
+//delete Flat
 router.delete('/:id', deleteFlat)
 
 
