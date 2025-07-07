@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const requiredEnvVars = ["PORT", "MONGO_URI", "JWT_SECRET", "SESSION_SECRET", "BREVO_API_KEY","SENDER_EMAIL"]
+const requiredEnvVars = ["PORT", "MONGO_URI", "JWT_SECRET", "SESSION_SECRET", "BREVO_API_KEY","SENDER_EMAIL","MODE"]
 
 requiredEnvVars.forEach( (key) => {
     if(!process.env[key]){
@@ -16,5 +16,6 @@ export default {
   brevoApiKey: process.env.BREVO_API_KEY,
   jwtSecret: process.env.JWT_SECRET,
   sessionSecret: process.env.SESSION_SECRET,
-  senderEmail: process.env.SENDER_EMAIL
+  senderEmail: process.env.SENDER_EMAIL,
+  env: process.env.MODE
 };
